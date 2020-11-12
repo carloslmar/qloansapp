@@ -25,7 +25,10 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import ModalDropdown from "react-native-modal-dropdown";
 import firebaseConfig from "../api/config";
 import BusinessCat from "./BusinessCat";
+import SearchResults from "./SearchResults";
+import { SearchBar } from "react-native-elements";
 import CompleteFlatList from "react-native-complete-flatlist";
+import { auto } from "async";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +61,7 @@ function StackScreen() {
           ),
         }}
       />
+      <Stack.Screen name="Search Results" component={SearchResults} />
     </Stack.Navigator>
   );
 }
@@ -68,10 +72,14 @@ class HomeScreen extends Component {
     this.state = {
       list: [],
       showModal: false,
+      search: "",
       cit: "All",
       citsel: "Select Your City",
     };
   }
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
 
   componentDidMount() {
     Firebase.database()
@@ -93,6 +101,51 @@ class HomeScreen extends Component {
     //console.log(Cities);
     return (
       <>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "row",
+            marginBottom: 20,
+          }}
+        >
+          <SearchBar
+            placeholder="Search a business name..."
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            inputContainerStyle={{
+              backgroundColor: "#10213d",
+            }}
+            containerStyle={{
+              backgroundColor: "#10213d",
+              width: "80%",
+            }}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("Search Results", {
+                screen: "Search Results",
+                params: {
+                  SearchTerm: this.state.search,
+                },
+              })
+            }
+            style={{
+              width: "20%",
+              backgroundColor: "#10213d",
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "bold",
+                alignSelf: "center",
+                paddingTop: "28%",
+              }}
+            >
+              Search
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View
           style={{
             flex: 0,
