@@ -9,6 +9,7 @@ import {
   Modal,
   Button,
   SectionList,
+  YellowBox,
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
@@ -89,6 +90,7 @@ class SearchResults extends Component {
     super();
     this.state = {
       list: [],
+      unique: [],
     };
   }
 
@@ -100,7 +102,7 @@ class SearchResults extends Component {
         .orderByChild("name")
         .startAt(SearchTerm)
         .endAt(SearchTerm + "\uf8ff");
-      console.log(query);
+      //console.log(query);
 
       //console.log("Sin Ciudad");
       query.on("value", (snapshot) => {
@@ -117,13 +119,16 @@ class SearchResults extends Component {
             statezip: child.val().statezip,
           });
         });
-        //this.setState({ list: li });
+        //Not working, needs review
+        const list_unique = Array.from(new Set(this.state.list));
+        this.setState({ unique: list_unique });
+        console.log(list_unique);
       });
     }
   }
 
   render() {
-    console.log(this.state.list);
+    YellowBox.ignoreWarnings(["Using an unspecified index."]);
 
     return (
       <SafeAreaView style={styles.container}>

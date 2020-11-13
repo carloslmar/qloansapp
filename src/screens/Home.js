@@ -28,7 +28,6 @@ import BusinessCat from "./BusinessCat";
 import SearchResults from "./SearchResults";
 import { SearchBar } from "react-native-elements";
 import CompleteFlatList from "react-native-complete-flatlist";
-import { auto } from "async";
 
 const Stack = createStackNavigator();
 
