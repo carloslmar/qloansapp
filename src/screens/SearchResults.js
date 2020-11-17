@@ -25,6 +25,7 @@ import ModalDropdown from "react-native-modal-dropdown";
 import CompleteFlatList from "react-native-complete-flatlist";
 //import DATA from "./customData.json";
 import InfoScreen from "./Info";
+import _ from "lodash";
 import { SearchBar } from "react-native-elements";
 //import BusinessList from "./BusinessList";
 
@@ -90,7 +91,7 @@ class SearchResults extends Component {
     super();
     this.state = {
       list: [],
-      unique: [],
+      unique_b: [],
     };
   }
 
@@ -106,7 +107,6 @@ class SearchResults extends Component {
 
       //console.log("Sin Ciudad");
       query.on("value", (snapshot) => {
-        var li = [];
         snapshot.forEach((child) => {
           this.state.list.push({
             key: child.key,
@@ -119,10 +119,12 @@ class SearchResults extends Component {
             statezip: child.val().statezip,
           });
         });
-        //Not working, needs review
-        const list_unique = Array.from(new Set(this.state.list));
-        this.setState({ unique: list_unique });
-        console.log(list_unique);
+        //Unique array goes here
+        var unique = new Set(this.state.list);
+        console.log(
+          _.filter(this.state.list, { name: "A Plus Towing and Recovery LLC" })
+        );
+        this.setState({ unique_b: unique });
       });
     }
   }
@@ -136,16 +138,14 @@ class SearchResults extends Component {
           searchKey={["name"]}
           highlightColor="yellow"
           searchBarBackgroundStyles={{ backgroundColor: "transparent" }}
-          data={this.state.list}
+          data={_.uniqBy(this.state.list, "name")}
           keyboardType="default"
           placeholder="Type a business name"
           ref={(c) => (this.completeFlatList = c)}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
           renderEmptyRow={() => (
-            <Text style={styles.noData}>
-              {"No Businesses in your area for this category."}
-            </Text>
+            <Text style={styles.noData}>{"Nothing found."}</Text>
           )}
           renderItem={({ item }) => (
             <TouchableOpacity

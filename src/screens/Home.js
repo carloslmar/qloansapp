@@ -104,7 +104,7 @@ class HomeScreen extends Component {
           style={{
             flex: 0,
             flexDirection: "row",
-            marginBottom: 20,
+            marginBottom: 1,
           }}
         >
           <SearchBar
