@@ -140,7 +140,7 @@ class SearchResults extends Component {
           searchBarBackgroundStyles={{ backgroundColor: "transparent" }}
           data={_.uniqBy(this.state.list, "name")}
           keyboardType="default"
-          placeholder="Type a business name"
+          placeholder="Search for a business name..."
           ref={(c) => (this.completeFlatList = c)}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}

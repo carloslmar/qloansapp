@@ -153,7 +153,7 @@ class HomeScreen extends Component {
           }}
         >
           <Image
-            source={require("../../assets/movinglogo.gif")}
+            source={require("../../assets/moving-logo-short.gif")}
             style={{
               alignSelf: "center",
               marginTop: 20,

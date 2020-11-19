@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import Constants from "expo-constants";
+import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, YellowBox, View, Image } from "react-native";
 import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,6 +11,8 @@ import BusinessList from "./src/screens/BusinessList";
 import { AppearanceProvider } from "react-native-appearance";
 import Profile from "./src/screens/Profile";
 import Reviews from "./src/screens/Reviews";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
 import Offers from "./src/screens/Offers";
 import InfoScreen from "./src/screens/Info";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";

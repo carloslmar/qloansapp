@@ -135,7 +135,7 @@ class BusinessCat extends Component {
           searchBarBackgroundStyles={{ backgroundColor: "transparent" }}
           data={this.state.list.sort((a, b) => a.name.localeCompare(b.name))}
           keyboardType="default"
-          placeholder="Type a business name"
+          placeholder="Search for a business name..."
           ref={(c) => (this.completeFlatList = c)}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}

@@ -92,22 +92,9 @@ class Offers extends Component {
       this.setState(state);
     });
     console.log("DATA RETRIEVED");
-    /*const url = "https://moquickloans.com/js/customData.json";
-    fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          data: res,
-        });
-        console.log("Data obtained!");
-      })
-      .catch((error) => {
-        console.log("get data error from:" + url + " error:" + error);
-      });*/
   };
   render() {
     const data = this.state;
-
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
