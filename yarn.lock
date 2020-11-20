@@ -3059,6 +3059,11 @@ expo-permissions@~9.0.1:
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-9.0.1.tgz#dc10b58654bbe39bbbed5827369942b01b08055e"
   integrity sha512-CosJgy8XQRN/OFG2JTQDcFxz3XTGi27coCMym/hVXWtQfk0z6PwdRG5IXHfLGuSckwIcgmirrwm2+Zc0X3MmNg==
 
+expo-push-notification-helper@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/expo-push-notification-helper/-/expo-push-notification-helper-0.4.0.tgz#07d5692d0db585d10dfd3147f028d7dbd07caa8e"
+  integrity sha512-FV1Tr9hTmu+tv16mpJlZTbjSLrzywbAJQbtFpYQAA1XeRTfebhqg/OwLsy4uBMUWgKsXwqHcNQM6iFKlFJ1voQ==
+
 expo-splash-screen@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.5.0.tgz#cad0eb77a3eade2c7101d169b8655e7ee8053c2f"
