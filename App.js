@@ -30,6 +30,14 @@ if (__DEV__) {
 const Tab = createBottomTabNavigator();
 YellowBox.ignoreWarnings(["Setting a timer"]);
 function MyTabs() {
+  /*initnotify().then(async (data) => {
+    if (data) {
+      console.log(await getToken());
+    } else {
+      alert("please grant this app notification permission in settings.");
+    }
+  });*/
+
   return (
     <AppearanceProvider>
       <NavigationContainer>
