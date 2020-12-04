@@ -330,9 +330,7 @@ class HomeScreen extends Component {
           </View>
           <View>
             <TouchableOpacity
-              onPress={() =>
-                Linking.openURL("https://chat.socialintents.com/c/moquick")
-              }
+              onPress={() => Linking.openURL("https://moquickloans.com/chat/")}
             >
               <Image
                 resizeMode="stretch"
