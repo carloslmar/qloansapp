@@ -25,6 +25,8 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import ModalDropdown from "react-native-modal-dropdown";
 import firebaseConfig from "../api/config";
 import BusinessCat from "./BusinessCat";
+import SearchResults from "./SearchResults";
+import { SearchBar } from "react-native-elements";
 import CompleteFlatList from "react-native-complete-flatlist";
 
 const Stack = createStackNavigator();
@@ -58,6 +60,7 @@ function StackScreen() {
           ),
         }}
       />
+      <Stack.Screen name="Search Results" component={SearchResults} />
     </Stack.Navigator>
   );
 }
@@ -68,10 +71,14 @@ class HomeScreen extends Component {
     this.state = {
       list: [],
       showModal: false,
+      search: "",
       cit: "All",
       citsel: "Select Your City",
     };
   }
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
 
   componentDidMount() {
     Firebase.database()
@@ -97,11 +104,56 @@ class HomeScreen extends Component {
           style={{
             flex: 0,
             flexDirection: "row",
+            marginBottom: 1,
+          }}
+        >
+          <SearchBar
+            placeholder="Search a business name..."
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            inputContainerStyle={{
+              backgroundColor: "#10213d",
+            }}
+            containerStyle={{
+              backgroundColor: "#10213d",
+              width: "80%",
+            }}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("Search Results", {
+                screen: "Search Results",
+                params: {
+                  SearchTerm: this.state.search,
+                },
+              })
+            }
+            style={{
+              width: "20%",
+              backgroundColor: "#10213d",
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "bold",
+                alignSelf: "center",
+                paddingTop: "28%",
+              }}
+            >
+              Search
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "row",
             marginBottom: 20,
           }}
         >
           <Image
-            source={require("../../assets/movinglogo.gif")}
+            source={require("../../assets/moving-logo-short.gif")}
             style={{
               alignSelf: "center",
               marginTop: 20,
@@ -278,9 +330,7 @@ class HomeScreen extends Component {
           </View>
           <View>
             <TouchableOpacity
-              onPress={() =>
-                Linking.openURL("https://chat.socialintents.com/c/moquick")
-              }
+              onPress={() => Linking.openURL("https://moquickloans.com/chat/")}
             >
               <Image
                 resizeMode="stretch"
@@ -295,7 +345,9 @@ class HomeScreen extends Component {
           </View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              onPress={() => Linking.openURL("https://zoom.us/j/2113531968")}
+              onPress={() =>
+                Linking.openURL("https://videochat.moquickloans.com")
+              }
             >
               <Image
                 resizeMode="stretch"

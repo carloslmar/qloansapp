@@ -9,6 +9,7 @@ import {
   Modal,
   Button,
   SectionList,
+  YellowBox,
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
@@ -24,14 +25,14 @@ import ModalDropdown from "react-native-modal-dropdown";
 import CompleteFlatList from "react-native-complete-flatlist";
 //import DATA from "./customData.json";
 import InfoScreen from "./Info";
+import _ from "lodash";
+import { SearchBar } from "react-native-elements";
 //import BusinessList from "./BusinessList";
 
 const Stack = createStackNavigator();
 
 class StackScreen extends Component {
   render() {
-    const CatName = this.props.route.params.params.CatName;
-    this.props.navigation.setOptions({ headerTitle: CatName });
     this.props.navigation.setOptions({
       headerLeft: () => (
         <HeaderBackButton
@@ -50,10 +51,10 @@ class StackScreen extends Component {
         }}
       >
         <Stack.Screen
-          name="Business Category"
-          component={BusinessCat}
+          name="Search Results"
+          component={SearchResults}
           options={{
-            title: "Business",
+            title: "Search Results",
             headerRight: () => (
               <Image
                 resizeMode="stretch"
@@ -73,7 +74,7 @@ class StackScreen extends Component {
     );
   }
 }
-class BusinessCat extends Component {
+class SearchResults extends Component {
   renderSeparator = () => {
     return (
       <View
@@ -90,42 +91,46 @@ class BusinessCat extends Component {
     super();
     this.state = {
       list: [],
+      unique_b: [],
     };
   }
 
   componentDidMount() {
-    const BusinessCategory = this.props.route.params.BusinessCategory;
-    if (Ciudad == "All") {
+    const SearchTerm = this.props.route.params.SearchTerm;
+    for (var i = 1; i <= 31; i++) {
       var query = Firebase.database()
-        .ref("/BusinessList/" + BusinessCategory + "/data")
-        .orderByChild("city");
+        .ref("/BusinessList/" + i + "/data")
+        .orderByChild("name")
+        .startAt(SearchTerm)
+        .endAt(SearchTerm + "\uf8ff");
+      //console.log(query);
+
       //console.log("Sin Ciudad");
-    } else {
-      var query = Firebase.database()
-        .ref("/BusinessList/" + BusinessCategory + "/data")
-        .orderByChild("city")
-        .equalTo(Ciudad);
-      //console.log("Con ciudad");
-    }
-    query.on("value", (snapshot) => {
-      var li = [];
-      snapshot.forEach((child) => {
-        li.push({
-          key: child.key,
-          name: child.val().name,
-          address: child.val().address,
-          logo: child.val().logo,
-          contact: child.val().contact,
-          phone: child.val().phone,
-          city: child.val().city,
-          statezip: child.val().statezip,
+      query.on("value", (snapshot) => {
+        snapshot.forEach((child) => {
+          this.state.list.push({
+            key: child.key,
+            name: child.val().name,
+            address: child.val().address,
+            logo: child.val().logo,
+            contact: child.val().contact,
+            phone: child.val().phone,
+            city: child.val().city,
+            statezip: child.val().statezip,
+          });
         });
+        //Unique array goes here
+        var unique = new Set(this.state.list);
+        console.log(
+          _.filter(this.state.list, { name: "A Plus Towing and Recovery LLC" })
+        );
+        this.setState({ unique_b: unique });
       });
-      this.setState({ list: li });
-    });
+    }
   }
+
   render() {
-    //console.log(this.state.list);
+    YellowBox.ignoreWarnings(["Using an unspecified index."]);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -133,16 +138,14 @@ class BusinessCat extends Component {
           searchKey={["name"]}
           highlightColor="yellow"
           searchBarBackgroundStyles={{ backgroundColor: "transparent" }}
-          data={this.state.list.sort((a, b) => a.name.localeCompare(b.name))}
+          data={_.uniqBy(this.state.list, "name")}
           keyboardType="default"
           placeholder="Search for a business name..."
           ref={(c) => (this.completeFlatList = c)}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
           renderEmptyRow={() => (
-            <Text style={styles.noData}>
-              {"No Businesses in your area for this category."}
-            </Text>
+            <Text style={styles.noData}>{"Nothing found."}</Text>
           )}
           renderItem={({ item }) => (
             <TouchableOpacity

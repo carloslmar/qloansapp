@@ -119,6 +119,7 @@ class BusinessList extends Component {
           data={this.state.list}
           numColumns={2}
           initialNumToRender={1}
+          placeholder="Search for a category name..."
           showsVerticalScrollIndicator={true}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
