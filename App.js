@@ -1,12 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
-<<<<<<< HEAD
 import React, { useState, useEffect, useRef, Component } from "react";
 import { StyleSheet, Text, Button, View, Image } from "react-native";
-=======
-import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, YellowBox, View, Image } from "react-native";
->>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
 import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
@@ -19,20 +14,9 @@ import BusinessList from "./src/screens/BusinessList";
 import { AppearanceProvider } from "react-native-appearance";
 import Profile from "./src/screens/Profile";
 import Reviews from "./src/screens/Reviews";
-<<<<<<< HEAD
 import Warranty from "./src/screens/Warranty";
 import BusinessCat from "./src/screens/BusinessCat";
 import Aul from "./src/screens/aul";
-=======
-import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
-import {
-  initnotify,
-  getToken,
-  notify,
-  newChannel,
-} from "expo-push-notification-helper";
->>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
 import Offers from "./src/screens/Offers";
 import InfoScreen from "./src/screens/Info";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -56,7 +40,6 @@ const Stack = createStackNavigator();
 const icomoon_ttf = require("./assets/fonts/icomoon.ttf");
 const EngineIcon = createIconSetFromIcoMoon(engine, "", icomoon_ttf);
 
-<<<<<<< HEAD
 LogBox.ignoreLogs(["Setting a timer"]);
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -127,21 +110,6 @@ export default function App() {
   }, []);
 
     return (
-=======
-const Tab = createBottomTabNavigator();
-YellowBox.ignoreWarnings(["Setting a timer"]);
-function MyTabs() {
-  /*initnotify().then(async (data) => {
-    if (data) {
-      console.log(await getToken());
-    } else {
-      alert("please grant this app notification permission in settings.");
-    }
-  });*/
-
-  return (
-    <AppearanceProvider>
->>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
