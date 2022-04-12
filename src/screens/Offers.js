@@ -48,11 +48,7 @@ class Offers extends Component {
       this.setState(state);
     });
     console.log("DATA RETRIEVED");
-<<<<<<< HEAD
   }
-=======
-  };
->>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
   render() {
     const data = this.state;
     return (
