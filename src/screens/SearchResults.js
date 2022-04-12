@@ -9,35 +9,39 @@ import {
   Modal,
   Button,
   SectionList,
+  LogBox,
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
   TouchableHighlight,
 } from "react-native";
 import { NavigationContainer, CommonActions } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from "@react-navigation/stack";
 import Firebase from "firebase";
 import ModalDropdown from "react-native-modal-dropdown";
 import CompleteFlatList from "react-native-complete-flatlist";
 //import DATA from "./customData.json";
-
+import InfoScreen from "./Info";
+import _ from "lodash";
+import { SearchBar } from "react-native-elements";
 //import BusinessList from "./BusinessList";
 
 const Stack = createStackNavigator();
 
 class StackScreen extends Component {
   render() {
-    const CatName = this.props.route.params.CatName;
-    this.props.navigation.setOptions({ headerTitle: CatName });
-    /*this.props.navigation.setOptions({
+    this.props.navigation.setOptions({
       headerLeft: () => (
         <HeaderBackButton
           onPress={() => this.props.navigation.goBack()}
           tintColor="#FFFFFF"
         />
       ),
-    });*/
-    console.log(global.Ciudad);
+    });
+    // console.log(CatName);
     return (
       <Stack.Navigator
         headerMode="screen"
@@ -46,12 +50,31 @@ class StackScreen extends Component {
           headerStyle: { backgroundColor: "#005a9c" },
         }}
       >
-        <Stack.Screen name="Business Categ" component={BusinessCat} />
+        <Stack.Screen
+          name="Search Results"
+          component={SearchResults}
+          options={{
+            title: "Search Results",
+            headerRight: () => (
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/logowhite.png")}
+                style={{
+                  flex: 0,
+                  width: 100,
+                  marginRight: 10,
+                  height: 20,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen name="Info" component={InfoScreen} />
       </Stack.Navigator>
     );
   }
 }
-class BusinessCat extends Component {
+class SearchResults extends Component {
   renderSeparator = () => {
     return (
       <View
@@ -68,44 +91,59 @@ class BusinessCat extends Component {
     super();
     this.state = {
       list: [],
+      unique_b: [],
     };
   }
 
   componentDidMount() {
-    //Move stack line to here.
-    const BusinessCategory = this.props.route.params.BusinessCategory;
-    console.log("Catego" + BusinessCategory);
-    if (Ciudad == "All") {
-      var query = Firebase.database()
-        .ref("/BusinessList/" + BusinessCategory + "/data")
-        .orderByChild("city");
-      //console.log("Sin Ciudad");
-    } else {
-      var query = Firebase.database()
-        .ref("/BusinessList/" + BusinessCategory + "/data")
-        .orderByChild("city")
-        .equalTo(Ciudad);
-      //console.log("Con ciudad");
+    var SearchTerm = this.props.route.params.SearchTerm;
+    if (SearchTerm === "Oreilly") {
+      SearchTerm = "O'Reilly";
+    } else if (SearchTerm === "oreilly") {
+      SearchTerm = "O'Reilly";
+    } else if (SearchTerm === "Oreilys") {
+      SearchTerm = "O'Reilly";
+    } else if (SearchTerm === "O'reilly") {
+      SearchTerm = "O'Reilly";
+    } else if (SearchTerm === "Oreillys") {
+      SearchTerm = "O'Reilly";
+    } else if (SearchTerm === "Steves") {
+      SearchTerm = "Steve's";
     }
-    query.on("value", (snapshot) => {
-      var li = [];
-      snapshot.forEach((child) => {
-        li.push({
-          key: child.key,
-          name: child.val().name,
-          address: child.val().address,
-          logo: child.val().logo,
-          contact: child.val().contact,
-          phone: child.val().phone,
-          city: child.val().city,
-          statezip: child.val().statezip,
+    for (var i = 1; i <= 31; i++) {
+      var query = Firebase.database()
+        .ref("/BusinessList/" + i + "/data")
+        .orderByChild("name")
+        .startAt(SearchTerm)
+        .endAt(SearchTerm + "\uf8ff");
+      //console.log(query);
+
+      //console.log("Sin Ciudad");
+      query.on("value", (snapshot) => {
+        snapshot.forEach((child) => {
+          this.state.list.push({
+            key: child.key,
+            name: child.val().name,
+            address: child.val().address,
+            logo: child.val().logo,
+            contact: child.val().contact,
+            phone: child.val().phone,
+            city: child.val().city,
+            statezip: child.val().statezip,
+          });
         });
+        //Unique array goes here
+        var unique = new Set(this.state.list);
+        console.log(
+          _.filter(this.state.list, { name: "A Plus Towing and Recovery LLC" })
+        );
+        this.setState({ unique_b: unique });
       });
-      this.setState({ list: li });
-    });
+    }
   }
+
   render() {
-    //console.log(CatName);
+    LogBox.ignoreLogs(["Using an unspecified index."]);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -113,22 +151,20 @@ class BusinessCat extends Component {
           searchKey={["name"]}
           highlightColor="yellow"
           searchBarBackgroundStyles={{ backgroundColor: "transparent" }}
-          data={this.state.list.sort((a, b) => a.name.localeCompare(b.name))}
+          data={_.uniqBy(this.state.list, "name")}
           keyboardType="default"
           placeholder="Search for a business name..."
           ref={(c) => (this.completeFlatList = c)}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
           renderEmptyRow={() => (
-            <Text style={styles.noData}>
-              {"No Businesses in your area for this category."}
-            </Text>
+            <Text style={styles.noData}>{"Nothing found."}</Text>
           )}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate("Info", {
-                  screen: "Information",
+                  screen: "Info",
                   title: "Info",
                   params: {
                     BusinessName: item.name,
@@ -153,7 +189,7 @@ class BusinessCat extends Component {
   }
 }
 
-export default BusinessCat;
+export default StackScreen;
 
 const styles = StyleSheet.create({
   container: {

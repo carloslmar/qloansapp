@@ -22,48 +22,6 @@ import {
   HeaderBackButton,
 } from "@react-navigation/stack";
 
-const Stack = createStackNavigator();
-
-class StackScreen extends Component {
-  render() {
-    return (
-      <Stack.Navigator
-        headerMode="screen"
-        screenOptions={{
-          headerTintColor: "#fff",
-          headerStyle: { backgroundColor: "#10213d" },
-          headerLeft: () => (
-            <HeaderBackButton
-              onPress={() => this.props.navigation.goBack()}
-              tintColor="#FFFFFF"
-              label="Back"
-            />
-          ),
-        }}
-      >
-        <Stack.Screen
-          name="Offers"
-          component={Offers}
-          options={{
-            title: "Special Deals",
-            headerRight: () => (
-              <Image
-                resizeMode="stretch"
-                source={require("../../assets/logowhite.png")}
-                style={{
-                  flex: 0,
-                  width: 100,
-                  marginRight: 10,
-                  height: 20,
-                }}
-              />
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    );
-  }
-}
 class Offers extends Component {
   renderSeparator = () => {
     return (
@@ -79,35 +37,20 @@ class Offers extends Component {
   };
   constructor() {
     super();
-    this.getRemoteData();
     this.state = {
       offers: [],
     };
   }
-
-  getRemoteData = () => {
+  componentDidMount() {
     let ref = Firebase.database().ref("/Offers");
     ref.on("value", (snapshot) => {
       const state = snapshot.val();
       this.setState(state);
     });
     console.log("DATA RETRIEVED");
-    /*const url = "https://moquickloans.com/js/customData.json";
-    fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          data: res,
-        });
-        console.log("Data obtained!");
-      })
-      .catch((error) => {
-        console.log("get data error from:" + url + " error:" + error);
-      });*/
-  };
+  }
   render() {
     const data = this.state;
-
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -148,7 +91,7 @@ class Offers extends Component {
   }
 }
 
-export default StackScreen;
+export default Offers;
 
 const styles = StyleSheet.create({
   container: {

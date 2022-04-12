@@ -49,10 +49,11 @@ class StackScreen extends Component {
         }}
       >
         <Stack.Screen
-          name="Auto Services"
+          name="Auto Service"
           component={BusinessList}
           options={{
             title: "Auto Services",
+            headerShown: false,
             headerRight: () => (
               <Image
                 resizeMode="stretch"
@@ -67,7 +68,46 @@ class StackScreen extends Component {
             ),
           }}
         />
-        <Stack.Screen name="Business Category" component={BusinessCat} />
+        <Stack.Screen
+          name="Business Category"
+          component={BusinessCat}
+          options={{
+            title: "Business Category",
+            headerShown: false,
+            headerRight: () => (
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/logowhite.png")}
+                style={{
+                  flex: 0,
+                  width: 100,
+                  marginRight: 10,
+                  height: 20,
+                }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Info"
+          component={InfoScreen}
+          options={{
+            title: "Business Info",
+            headerShown: false,
+            headerRight: () => (
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/logowhite.png")}
+                style={{
+                  flex: 0,
+                  width: 100,
+                  marginRight: 10,
+                  height: 20,
+                }}
+              />
+            ),
+          }}
+        />
       </Stack.Navigator>
     );
   }
@@ -89,6 +129,10 @@ class BusinessList extends Component {
     super();
     this.state = {
       list: [],
+      citlist: [],
+      showModal: false,
+      cit: "All",
+      citsel: "Touch here to Select Your City",
     };
   }
 
@@ -107,22 +151,123 @@ class BusinessList extends Component {
         });
         this.setState({ list: li });
       });
+
+    Firebase.database()
+      .ref("/Cities")
+      .on("value", (snapshot) => {
+        var lic = [];
+        snapshot.forEach((child) => {
+          lic.push({
+            id: child.key,
+            name: child.val().cityname,
+          });
+        });
+        this.setState({ citlist: lic });
+      });
   }
 
   render() {
-    console.log(Ciudad);
+    global.Ciudad = this.state.cit;
+    const Cities = this.state.citlist;
+    console.log(Cities);
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.showModal}
+        >
+          <View
+            style={{
+              margin: 50,
+              backgroundColor: "white",
+              borderRadius: 20,
+              padding: 30,
+              alignItems: "center",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 20,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 9.84,
+              elevation: 5,
+            }}
+          >
+            <SafeAreaView>
+              <CompleteFlatList
+                searchKey={["name"]}
+                searchBarBackgroundStyles={{
+                  backgroundColor: "transparent",
+                  width: 270,
+                  borderRadius: 25,
+                  borderWidth: 2,
+                  height: 50,
+                }}
+                showSearch={true}
+                data={Cities}
+                showsVerticalScrollIndicator={true}
+                keyExtractor={(item, index) => item + index}
+                ListEmptyComponent={<Text>Nothing to see</Text>}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      backgroundColor: "white",
+                      paddingBottom: 12,
+                    }}
+                    forceInset={{ top: "never" }}
+                    onPress={() =>
+                      this.setState({
+                        cit: item.name,
+                        showModal: false,
+                        citsel: item.name,
+                      })
+                    }
+                  >
+                    <View>
+                      <Text style={{ fontSize: 26 }}>{item.name}</Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
+              />
+            </SafeAreaView>
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#FFFFFF",
+              }}
+              onPress={() => {
+                this.setState({
+                  showModal: false,
+                });
+              }}
+            >
+              <Text>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <TouchableOpacity
+          style={styles.openButton}
+          onPress={() => {
+            this.setState({
+              showModal: true,
+            });
+          }}
+        >
+          <Text style={styles.textStyle}>{this.state.citsel}</Text>
+        </TouchableOpacity>
         <CompleteFlatList
           showSearch={true}
           searchKey={["category"]}
           data={this.state.list}
           numColumns={2}
           initialNumToRender={1}
+          placeholder="Search for a category name..."
           showsVerticalScrollIndicator={true}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
-          ListEmptyComponent={<Text>Nothing to see</Text>}
+          ListEmptyComponent={<Text>Nothing found</Text>}
           renderItem={({ item }) =>
             item.key && (
               <View style={{ flex: 1, flexDirection: "column", margin: 1 }}>
@@ -132,10 +277,10 @@ class BusinessList extends Component {
                   onPress={() =>
                     this.props.navigation.navigate("Business Category", {
                       screen: "Business Category",
-                      params: {
-                        BusinessCategory: item.key,
-                        CatName: item.category,
-                      },
+
+                      BusinessCategory: item.key,
+                      CatName: item.category,
+                      testo: "testo",
                     })
                   }
                 >
@@ -168,7 +313,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#FFFFFF",
     flex: 1,
-    marginHorizontal: 1,
+    marginHorizontal: 0,
     width: "100%",
   },
   modal: {
@@ -189,5 +334,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 12,
+  },
+
+  openButton: {
+    backgroundColor: "#10213d",
+  },
+
+  textStyle: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 18,
   },
 });

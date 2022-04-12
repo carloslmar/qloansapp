@@ -34,12 +34,7 @@ const Stack = createStackNavigator();
 class StackScreen extends Component {
   render() {
     this.props.navigation.setOptions({
-      headerLeft: () => (
-        <HeaderBackButton
-          onPress={() => this.props.navigation.goBack()}
-          tintColor="#FFFFFF"
-        />
-      ),
+      headerShown: false,
     });
     return (
       <Stack.Navigator
@@ -51,7 +46,7 @@ class StackScreen extends Component {
         }}
       >
         <Stack.Screen
-          name="Info"
+          name="Information"
           component={InfoScreen}
           options={{ title: "Info" }}
         />

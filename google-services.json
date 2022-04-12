@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "107911682387",
+    "firebase_url": "https://ql-mobile-app-3a52a.firebaseio.com",
+    "project_id": "ql-mobile-app-3a52a",
+    "storage_bucket": "ql-mobile-app-3a52a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107911682387:android:531aa23647d250457fa9a6",
+        "android_client_info": {
+          "package_name": "com.quickloans.qloansapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107911682387-uca25bo249klqn60j0fhi40ebk7pn1pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWLkneyIoozlKBqcHaXJeoXg11V0l2Qm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107911682387-uca25bo249klqn60j0fhi40ebk7pn1pn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "107911682387-f1thnni54qj7h1ecud0lo72e8b3t78vq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quickloans.qlmobileapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
