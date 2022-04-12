@@ -35,16 +35,10 @@
     },
     "android": {
       "package": "com.quickloans.qloansapp",
-<<<<<<< HEAD
       "versionCode": 7,
       "permissions": [],
       "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json"
-=======
-      "versionCode": 1,
-      "permissions": [],
-      "useNextNotificationsApi": true
->>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     }
   }
 }
