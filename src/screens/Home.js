@@ -27,6 +27,12 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import CompleteFlatList from "react-native-complete-flatlist";
 import firebaseConfig from "../api/config";
 import BusinessCat from "./BusinessCat";
+<<<<<<< HEAD
+=======
+import SearchResults from "./SearchResults";
+import { SearchBar } from "react-native-elements";
+import CompleteFlatList from "react-native-complete-flatlist";
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
 
 const Stack = createStackNavigator();
 
@@ -47,6 +53,7 @@ class StackScreen extends Component {
             />
           ),
         }}
+<<<<<<< HEAD
       >
         <Stack.Screen
           name="Auto Services"
@@ -71,6 +78,12 @@ class StackScreen extends Component {
       </Stack.Navigator>
     );
   }
+=======
+      />
+      <Stack.Screen name="Search Results" component={SearchResults} />
+    </Stack.Navigator>
+  );
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
 }
 
 class BusinessList extends Component {
@@ -89,8 +102,18 @@ class BusinessList extends Component {
     super();
     this.state = {
       list: [],
+<<<<<<< HEAD
+=======
+      showModal: false,
+      search: "",
+      cit: "All",
+      citsel: "Select Your City",
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     };
   }
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
 
   componentDidMount() {
     Firebase.database()
@@ -111,6 +134,7 @@ class BusinessList extends Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <SafeAreaView style={styles.container}>
         <CompleteFlatList
           showSearch={true}
@@ -138,6 +162,125 @@ class BusinessList extends Component {
                       },
                     })
                   }
+=======
+      <>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "row",
+            marginBottom: 1,
+          }}
+        >
+          <SearchBar
+            placeholder="Search a business name..."
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            inputContainerStyle={{
+              backgroundColor: "#10213d",
+            }}
+            containerStyle={{
+              backgroundColor: "#10213d",
+              width: "80%",
+            }}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("Search Results", {
+                screen: "Search Results",
+                params: {
+                  SearchTerm: this.state.search,
+                },
+              })
+            }
+            style={{
+              width: "20%",
+              backgroundColor: "#10213d",
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "bold",
+                alignSelf: "center",
+                paddingTop: "28%",
+              }}
+            >
+              Search
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "row",
+            marginBottom: 20,
+          }}
+        >
+          <Image
+            source={require("../../assets/moving-logo-short.gif")}
+            style={{
+              alignSelf: "center",
+              marginTop: 20,
+              width: "100%",
+              height: 110,
+              resizeMode: "stretch",
+            }}
+          />
+        </View>
+        <View style={{ flex: 0, flexDirection: "column", marginTop: 0 }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              marginTop: 0,
+              marginLeft: 10,
+              fontSize: 16,
+            }}
+          >
+            To find auto services, select your city:
+          </Text>
+          <Text> </Text>
+          <View
+            style={{
+              flex: 0,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              marginLeft: 10,
+              paddingStart: 10,
+              paddingTop: 0,
+              marginRight: 10,
+            }}
+          >
+            <View
+              style={{
+                flex: 0,
+                flexDirection: "row",
+                alignContent: "center",
+                marginBottom: 2,
+              }}
+            >
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={this.state.showModal}
+              >
+                <View
+                  style={{
+                    margin: 50,
+                    backgroundColor: "white",
+                    borderRadius: 20,
+                    padding: 30,
+                    alignItems: "center",
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 20,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 9.84,
+                    elevation: 5,
+                  }}
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
                 >
                   <Image
                     style={{
@@ -150,6 +293,7 @@ class BusinessList extends Component {
                         item.image ??
                         "https://firebasestorage.googleapis.com/v0/b/ql-mobile-app-3a52a.appspot.com/o/placeholder%20(1).gif?alt=media&token=e32c651d-a98f-4e56-aac9-e9a77c24dfd9",
                     }}
+<<<<<<< HEAD
                   />
                 </TouchableOpacity>
               </View>
@@ -158,6 +302,105 @@ class BusinessList extends Component {
           //Setting the number of column
         />
       </SafeAreaView>
+=======
+                  >
+                    <Text style={styles.textStyle}>Cancel</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+              <TouchableOpacity
+                style={styles.openButton}
+                onPress={() => {
+                  this.setState({
+                    showModal: true,
+                  });
+                }}
+              >
+                <Text style={styles.textStyle}>{this.state.citsel}</Text>
+              </TouchableOpacity>
+
+              <FontAwesome5
+                style={{
+                  alignSelf: "flex-start",
+                  marginTop: 0,
+                  marginLeft: 5,
+                  fontSize: 25,
+                }}
+                name="caret-down"
+                size={16}
+              />
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate("Services", {
+                screen: "Services",
+              })
+            }
+            style={styles.appButtonContainer}
+          >
+            <Text style={styles.appButtonText}>Go to Auto Services</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => Linking.openURL("tel:" + "(417) 725-5010")}
+            >
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/bigcall.png")}
+                style={{
+                  flex: 0,
+                  marginTop: 10,
+                  width: 290,
+                  height: 95,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => Linking.openURL("https://moquickloans.com/chat/")}
+            >
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/bigchat.png")}
+                style={{
+                  flex: 0,
+                  width: 290,
+                  height: 95,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL("https://videochat.moquickloans.com")
+              }
+            >
+              <Image
+                resizeMode="stretch"
+                source={require("../../assets/bigvideo.png")}
+                style={{
+                  flex: 0,
+                  width: 290,
+                  height: 95,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </>
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     );
   }
 }

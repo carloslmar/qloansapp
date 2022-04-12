@@ -2,6 +2,7 @@
   "expo": {
     "name": "Quick Loans",
     "slug": "qloansapp",
+<<<<<<< HEAD
     "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,6 +17,12 @@
         }
       ]
     ],
+=======
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -28,17 +35,27 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.quickloans.qloansapp",
+<<<<<<< HEAD
       "buildNumber": "1.0.3"
+=======
+      "buildNumber": "0.1.0"
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
       "package": "com.quickloans.qloansapp",
+<<<<<<< HEAD
       "versionCode": 7,
       "permissions": [],
       "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json"
+=======
+      "versionCode": 1,
+      "permissions": [],
+      "useNextNotificationsApi": true
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     }
   }
 }

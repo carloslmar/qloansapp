@@ -9,7 +9,11 @@ import {
   Modal,
   Button,
   SectionList,
+<<<<<<< HEAD
   LogBox,
+=======
+  YellowBox,
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
   StatusBar,
   ActivityIndicator,
   TouchableOpacity,
@@ -96,6 +100,7 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     var SearchTerm = this.props.route.params.SearchTerm;
     if (SearchTerm === "Oreilly") {
       SearchTerm = "O'Reilly";
@@ -110,6 +115,9 @@ class SearchResults extends Component {
     } else if (SearchTerm === "Steves") {
       SearchTerm = "Steve's";
     }
+=======
+    const SearchTerm = this.props.route.params.SearchTerm;
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
     for (var i = 1; i <= 31; i++) {
       var query = Firebase.database()
         .ref("/BusinessList/" + i + "/data")
@@ -143,7 +151,11 @@ class SearchResults extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     LogBox.ignoreLogs(["Using an unspecified index."]);
+=======
+    YellowBox.ignoreWarnings(["Using an unspecified index."]);
+>>>>>>> eaf0ea8cdab420ace7baf4d832c397c82a4bd21b
 
     return (
       <SafeAreaView style={styles.container}>
