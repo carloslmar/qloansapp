@@ -32,36 +32,30 @@ import * as SQLite from "expo-sqlite";
 import Constants from "expo-constants";
 
 
-function openDatabase() {
-  if (Platform.OS === "web") {
-    return {
-      transaction: () => {
-        return {
-          executeSql: () => {},
-        };
-      },
+const db = SQLite.openDatabase("db.db");
+
+
+class AddCar extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      make: null,
     };
   }
 
-  const db = SQLite.openDatabase("db.db");
-  return db;
-}
-
-const db = openDatabase();
-export default function AddCar() {
-
-  useEffect(() => {
+render() {
+var Make = this.state.make;
+  function AddData() {
     db.transaction((tx) => {
       tx.executeSql(
-        "create table if not exists cars (id integer primary key not null, make text);"
+        'INSERT INTO cars (make) values (?)', [Make],
       );
-    });
-  }, []);
-
+    })
+  }
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
           <ScrollView keyboardShouldPersistTaps="handled">
             <KeyboardAvoidingView
@@ -70,21 +64,22 @@ export default function AddCar() {
               <TextInput
                 placeholder="Enter Vehicle Make"
                 style={{ padding: 10 }}
-              />
-              <TouchableOpacity><Button title="Save" onPress={ db.transaction((tx) => {
-      tx.executeSql(
-        'INSERT INTO cars (id, make) values (?, ?)', [5, 'asd'],
-      );
-      console.log("Saved");
-    })} /></TouchableOpacity>
-
+                value={this.state.make}
+                onChangeText={(make) => this.setState({ make })}
+              ></TextInput>
+              <TouchableOpacity><Button onPress={() => {
+    AddData();
+  }} title="Save">SAVE</Button></TouchableOpacity>
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
-      </View>
     </SafeAreaView>
   );
 }
+}
+
+export default AddCar;
+
 
 const styles = StyleSheet.create({
   container: {

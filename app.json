@@ -4,6 +4,7 @@
     "slug": "qloansapp",
     "version": "1.0.4",
     "orientation": "portrait",
+	"owner": "walter10h",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "plugins": [

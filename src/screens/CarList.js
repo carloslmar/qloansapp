@@ -59,6 +59,7 @@ class StackScreen extends Component {
 
 const db = SQLite.openDatabase("db.db");
 
+
 class CarList extends Component {
   renderSeparator = () => {
     return (
@@ -80,20 +81,24 @@ class CarList extends Component {
   }
 
   componentDidMount() {
+    db.transaction(tx => { tx.executeSql('create table cars (id integer primary key not null, make text, model text, car_year integer, vin text, oil_done integer, wheel_done integer, eaf_done integer, caf_done integer, windw_done integer, tflu_done integer, rad_done integer, brakef_done integer, spark_done integer, fbrake_done integer, rbrake_done integer, pef_done integer, tbelt_done integer, bat_done integer, state_done integer);');},
+    ),
+    error => {
+      alert(error);
+    },
     db.transaction(tx => {
-      // sending 4 arguments in executeSql
-      tx.executeSql('SELECT * FROM cars', null, // passing sql query and parameters:null
-        // success callback which sends two things Transaction object and ResultSet Object
-        (txObj, { rows: { _array } }) => this.setState({ list: _array }),
-        // failure callback which sends two things Transaction object and Error
-        (txObj, error) => console.log('Error ', error)
-        ) // end executeSQL
-    }) // end transaction
+      tx.executeSql('select * from cars', [], (_, { rows }) => {
+        this.setState({ list: rows })
+      });
+    },
+      error => {w
+        console.log(error);
+      },
+      () => console.log(this.state.list._array)
+    );
   }
 
   render() {
-
-console.log(this.state.list);
     return (
       <SafeAreaView style={styles.container}>
                 <TouchableOpacity><Button title="Add Vehicle" onPress={() =>
@@ -104,7 +109,7 @@ console.log(this.state.list);
               } /></TouchableOpacity>
 
         <CompleteFlatList
-          data={this.state.list}
+          data={this.state.list._array}
           ItemSeparatorComponent={this.renderSeparator}
           keyExtractor={(item, index) => item + index}
           renderEmptyRow={() => (
@@ -113,14 +118,7 @@ console.log(this.state.list);
             </Text>
           )}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate("Add Car", {
-                  screen: "Add Car",
-                  title: "Add Vehicle",
-                })
-              }
-            >
+            <TouchableOpacity>
               <View>
                 <Text style={{ fontSize: 20 }}>{item.make}</Text>
               </View>
