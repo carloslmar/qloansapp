@@ -11,7 +11,6 @@ import {
 } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/Home";
 import BusinessList from "./src/screens/BusinessList";
-import { AppearanceProvider } from "react-native-appearance";
 import Profile from "./src/screens/Profile";
 import Reviews from "./src/screens/Reviews";
 import Warranty from "./src/screens/Warranty";
