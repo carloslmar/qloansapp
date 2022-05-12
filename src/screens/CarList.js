@@ -81,7 +81,7 @@ class CarList extends Component {
   }
 
   componentDidMount() {
-    db.transaction(tx => { tx.executeSql('create table cars (id integer primary key not null, make text, model text, car_year integer, vin text, oil_done integer, wheel_done integer, eaf_done integer, caf_done integer, windw_done integer, tflu_done integer, rad_done integer, brakef_done integer, spark_done integer, fbrake_done integer, rbrake_done integer, pef_done integer, tbelt_done integer, bat_done integer, state_done integer);');},
+    db.transaction(tx => { tx.executeSql('create table cars (id integer primary key not null, make text, model text, car_year integer, vin text, miles integer, oil_done integer, wheel_done integer, eaf_done integer, caf_done integer, windw_done integer, tflu_done integer, rad_done integer, brakef_done integer, spark_done integer, fbrake_done integer, rbrake_done integer, pef_done integer, tbelt_done integer, bat_done integer, state_done integer);');},
     ),
     error => {
       alert(error);

@@ -41,15 +41,21 @@ class AddCar extends Component {
     super();
     this.state = {
       make: null,
+      model: null,
+      vin: null,
+      year: null,
     };
   }
 
 render() {
 var Make = this.state.make;
+var Model = this.state.model;
+var Vin = this.state.vin;
+var Year = this.state.year;
   function AddData() {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO cars (make) values (?)', [Make],
+        'INSERT INTO cars (make, model, vin, year) values (?, ?, ?, ?)', [Make],
       );
     })
   }
@@ -66,6 +72,24 @@ var Make = this.state.make;
                 style={{ padding: 10 }}
                 value={this.state.make}
                 onChangeText={(make) => this.setState({ make })}
+              ></TextInput>
+               <TextInput
+                placeholder="Enter Vehicle Model"
+                style={{ padding: 10 }}
+                value={this.state.model}
+                onChangeText={(model) => this.setState({ model })}
+              ></TextInput>
+              <TextInput
+                placeholder="Enter Vehicle VIN (Optional)"
+                style={{ padding: 10 }}
+                value={this.state.vin}
+                onChangeText={(vin) => this.setState({ vin })}
+              ></TextInput>
+              <TextInput
+                placeholder="Enter Vehicle Year"
+                style={{ padding: 10 }}
+                value={this.state.year}
+                onChangeText={(year) => this.setState({ year })}
               ></TextInput>
               <TouchableOpacity><Button onPress={() => {
     AddData();
