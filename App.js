@@ -35,6 +35,7 @@ import RegisterCar from "./src/screens/AddCar";
 if (__DEV__) {
   import("./ReactotronConfig");
 }
+import 
 const Stack = createStackNavigator();
 const icomoon_ttf = require("./assets/fonts/icomoon.ttf");
 const EngineIcon = createIconSetFromIcoMoon(engine, "", icomoon_ttf);
