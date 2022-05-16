@@ -40,6 +40,9 @@ const icomoon_ttf = require("./assets/fonts/icomoon.ttf");
 const EngineIcon = createIconSetFromIcoMoon(engine, "", icomoon_ttf);
 
 LogBox.ignoreLogs(["Setting a timer"]);
+LogBox.ignoreLogs([
+  "exported from 'deprecated-react-native-prop-types'.",
+  ])
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,

@@ -119,8 +119,19 @@ class CarList extends Component {
           )}
           renderItem={({ item }) => (
             <TouchableOpacity>
-              <View>
-                <Text style={{ fontSize: 20 }}>{item.make}</Text>
+              <View style={{
+                marginTop: 15,
+                marginBottom: 15,
+                borderStyle: "solid",
+                borderColor: "black",
+                borderWidth: 2,
+                borderRadius: 25,
+                width:"70%",
+                alignItems:"center"
+              }}>
+                <Text style={{ fontSize: 20 }}>{item.make} {item.model}</Text>
+                <Text style={{ fontSize: 20 }}>Year: {item.car_year}</Text>
+                <Text style={{ fontSize: 20 }}>Miles: {item.miles}</Text>
               </View>
             </TouchableOpacity>
           )}

@@ -52,12 +52,15 @@ var Make = this.state.make;
 var Model = this.state.model;
 var Vin = this.state.vin;
 var Year = this.state.year;
+var Miles = this.state.miles;
   function AddData() {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO cars (make, model, vin, year) values (?, ?, ?, ?)', [Make],
+        'INSERT INTO cars (make, model, vin, car_year, miles) values (?, ?, ?, ?, ?)', [Make, Model, Vin, Year, Miles],
       );
-    })
+    },  error => {
+      alert(error);
+    },)
   }
   return (
 
@@ -83,13 +86,22 @@ var Year = this.state.year;
                 placeholder="Enter Vehicle VIN (Optional)"
                 style={{ padding: 10 }}
                 value={this.state.vin}
+                keyboardType="ascii-capable"
                 onChangeText={(vin) => this.setState({ vin })}
               ></TextInput>
               <TextInput
                 placeholder="Enter Vehicle Year"
                 style={{ padding: 10 }}
                 value={this.state.year}
+                keyboardType="numeric"
                 onChangeText={(year) => this.setState({ year })}
+              ></TextInput>
+              <TextInput
+                placeholder="Enter Vehicle Miles"
+                style={{ padding: 10 }}
+                value={this.state.miles}
+                keyboardType="numeric"
+                onChangeText={(miles) => this.setState({ miles })}
               ></TextInput>
               <TouchableOpacity><Button onPress={() => {
     AddData();
