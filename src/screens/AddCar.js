@@ -30,7 +30,8 @@ import { SearchBar } from "react-native-elements";
 import CompleteFlatList from "react-native-complete-flatlist";
 import * as SQLite from "expo-sqlite";
 import Constants from "expo-constants";
-
+import makes_and_models from "../api/makes_and_models.json";
+import { Picker } from '@react-native-picker/picker';
 
 const db = SQLite.openDatabase("db.db");
 
