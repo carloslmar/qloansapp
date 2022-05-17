@@ -59,7 +59,7 @@ var Miles = this.state.miles;
         'INSERT INTO cars (make, model, vin, car_year, miles) values (?, ?, ?, ?, ?)', [Make, Model, Vin, Year, Miles],
       );
     },  error => {
-      alert("error");
+      alert(error);
     },)
   }
   return (
