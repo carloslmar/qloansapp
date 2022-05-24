@@ -32,6 +32,7 @@ import * as SQLite from "expo-sqlite";
 import Constants from "expo-constants";
 import makes_and_models from "../api/makes_and_models.json";
 import { Picker } from '@react-native-picker/picker';
+import * as Notifications from "expo-notifications";
 
 const db = SQLite.openDatabase("db.db");
 
@@ -41,6 +42,7 @@ class AddCar extends Component {
   constructor() {
     super();
     this.state = {
+      dataSource: makes_and_models,
       make: null,
       model: null,
       vin: null,
@@ -55,6 +57,14 @@ var Vin = this.state.vin;
 var Year = this.state.year;
 var Miles = this.state.miles;
   function AddData() {
+     Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: "Here is the notification body",
+        data: { data: "goes here" },
+      },
+      trigger: { seconds: 2 },
+    });
     db.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO cars (make, model, vin, car_year, miles) values (?, ?, ?, ?, ?)', [Make, Model, Vin, Year, Miles],
@@ -63,6 +73,8 @@ var Miles = this.state.miles;
       alert(error);
     },)
   }
+  var a = this.state.dataSource.map((item, key)=>(  console.log(item.models)))
+  console.log(a);
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
@@ -71,12 +83,16 @@ var Miles = this.state.miles;
             <KeyboardAvoidingView
               behavior="padding"
               style={{ flex: 1, justifyContent: 'space-between' }}>
-              <TextInput
-                placeholder="Enter Vehicle Make"
-                style={{ padding: 10 }}
-                value={this.state.make}
-                onChangeText={(make) => this.setState({ make })}
-              ></TextInput>
+                <Picker
+            selectedValue={this.state.make}
+ 
+            onValueChange={(itemValue, itemIndex) => this.setState({make: itemValue})} >
+ 
+            { this.state.dataSource.map((item, key)=>(
+            <Picker.Item label={item.make_name} value={item.make_name} key={key} />)
+            )}
+    
+          </Picker>
                <TextInput
                 placeholder="Enter Vehicle Model"
                 style={{ padding: 10 }}
