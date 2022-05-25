@@ -59,7 +59,7 @@ var Miles = this.state.miles;
   function AddData() {
      Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got mail! 📬",
+        title: "You've got",
         body: "Here is the notification body",
         data: { data: "goes here" },
       },
@@ -85,7 +85,6 @@ var Miles = this.state.miles;
               style={{ flex: 1, justifyContent: 'space-between' }}>
                 <Picker
             selectedValue={this.state.make}
- 
             onValueChange={(itemValue, itemIndex) => this.setState({make: itemValue})} >
  
             { this.state.dataSource.map((item, key)=>(
