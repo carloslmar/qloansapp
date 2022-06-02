@@ -33,6 +33,8 @@ import Constants from "expo-constants";
 import makes_and_models from "../api/makes_and_models.json";
 import { Picker } from '@react-native-picker/picker';
 import * as Notifications from "expo-notifications";
+import { normalize, schema } from 'normalizr';
+
 
 const db = SQLite.openDatabase("db.db");
 
@@ -56,12 +58,21 @@ var Model = this.state.model;
 var Vin = this.state.vin;
 var Year = this.state.year;
 var Miles = this.state.miles;
+
+const make = new schema.Entity('make');
+const models = new schema.Entity('model');
+const carSchema = new schema.Entity('cars', {
+  make: make,
+  model: [models]
+});
+
   function AddData() {
      Notifications.scheduleNotificationAsync({
       content: {
         title: "You've got",
         body: "Here is the notification body",
         data: { data: "goes here" },
+
       },
       trigger: { seconds: 2 },
     });
@@ -90,7 +101,6 @@ var Miles = this.state.miles;
             { this.state.dataSource.map((item, key)=>(
             <Picker.Item label={item.make_name} value={item.make_name} key={key} />)
             )}
-    
           </Picker>
                <TextInput
                 placeholder="Enter Vehicle Model"
