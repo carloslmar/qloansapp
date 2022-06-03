@@ -99,10 +99,10 @@ class Navi extends Component {
                 name: "Google",
                 image: "google",
                 screen: "Google",
-                size: 80,
+                size: 69,
                 paddingl: 40,
                 paddingr: 40,
-                paddingt: 20,
+                paddingt: 32,
                 paddingb: 20,
               },
               {

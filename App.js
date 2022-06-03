@@ -382,7 +382,7 @@ class Start extends Component {
               paddingt: 20,
               paddingb: 20,
             },
-            {
+            /*{
               name: "Vehicle Maint.",
               image: "engine",
               screen: "Car List",
@@ -391,7 +391,7 @@ class Start extends Component {
               paddingr: 32,
               paddingt: 20,
               paddingb: 20,
-            },
+            },*/
           ]}
           style={styles.gridView}
           // staticDimension={300}

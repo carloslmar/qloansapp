@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     flex: 1,
     width: "100%",
+    height: "100%",
   },
   modal: {
     flex: 1,
@@ -121,9 +122,9 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     marginTop: 20,
-    width: "98%",
-    height: 200,
-    resizeMode: "stretch",
+    width: "100%",
+    height: 298,
+    resizeMode: "fit",
     justifyContent: "center",
     alignSelf: "center",
   },
