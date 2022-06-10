@@ -29,6 +29,7 @@ class StackScreen extends Component {
   render() {
     const CatName = this.props.route.params.CatName;
     this.props.navigation.setOptions({ headerTitle: CatName });
+
     /*this.props.navigation.setOptions({
       headerLeft: () => (
         <HeaderBackButton
@@ -73,8 +74,10 @@ class BusinessCat extends Component {
 
   componentDidMount() {
     //Move stack line to here.
+    const CatName = this.props.route.params.CatName;
+    this.props.navigation.setOptions({ headerTitle: CatName });
     const BusinessCategory = this.props.route.params.BusinessCategory;
-    console.log("Catego" + BusinessCategory);
+    console.log(BusinessCategory);
     if (Ciudad == "All") {
       var query = Firebase.database()
         .ref("/BusinessList/" + BusinessCategory + "/data")
@@ -105,8 +108,6 @@ class BusinessCat extends Component {
     });
   }
   render() {
-    //console.log(CatName);
-
     return (
       <SafeAreaView style={styles.container}>
         <CompleteFlatList
@@ -127,9 +128,9 @@ class BusinessCat extends Component {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() =>
-                this.props.navigation.navigate("Info", {
+                this.props.navigation.navigate("Information", {
                   screen: "Information",
-                  title: "Info",
+                  title: item.name,
                   params: {
                     BusinessName: item.name,
                     Logo: item.logo,

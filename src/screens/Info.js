@@ -33,6 +33,7 @@ const Stack = createStackNavigator();
 
 class StackScreen extends Component {
   render() {
+    const Naming = this.props.route.params.title;
     this.props.navigation.setOptions({
       headerShown: false,
     });
@@ -48,7 +49,7 @@ class StackScreen extends Component {
         <Stack.Screen
           name="Information"
           component={InfoScreen}
-          options={{ title: "Info" }}
+          options={{ title: Naming }}
         />
       </Stack.Navigator>
     );
@@ -70,15 +71,6 @@ function InfoScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Card>
-        <CardItem>
-          <Left>
-            <Body>
-              <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                {BusinessName}
-              </Text>
-            </Body>
-          </Left>
-        </CardItem>
         <CardItem>
           <Body>
             <Image

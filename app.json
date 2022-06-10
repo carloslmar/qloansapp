@@ -2,7 +2,7 @@
   "expo": {
     "name": "Quick Loans",
     "slug": "qloansapp",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
 	"owner": "walter10h",
     "icon": "./assets/icon.png",
@@ -29,14 +29,14 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.quickloans.qloansapp",
-      "buildNumber": "1.0.4"
+      "buildNumber": "1.0.5"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
       "package": "com.quickloans.qloansapp",
-      "versionCode": 7,
+      "versionCode": 8,
       "permissions": [],
       "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json"

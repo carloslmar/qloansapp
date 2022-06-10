@@ -60,10 +60,8 @@ var Year = this.state.year;
 var Miles = this.state.miles;
 
 const make = new schema.Entity('make');
-const models = new schema.Entity('model');
-const carSchema = new schema.Entity('cars', {
+const models = new schema.Entity('model', {
   make: make,
-  model: [models]
 });
 
   function AddData() {

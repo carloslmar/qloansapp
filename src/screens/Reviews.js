@@ -6,6 +6,7 @@ import {
   StatusBar,
   Image,
   SafeAreaView,
+  Dimensions,
   Platform,
 } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
@@ -36,6 +37,7 @@ class Reviewnav extends Component {
             headerShown: false,
             title: "Reviews",
             headerStyle: { backgroundColor: "#005a9c" },
+            StatusBarStyle: 'light-content',
             headerRight: () => (
               <Image
                 resizeMode="stretch"
@@ -97,7 +99,7 @@ class Navi extends Component {
             data={[
               {
                 name: "Google",
-                image: "google",
+                image: require("../../assets/icons/google.png"),
                 screen: "Google",
                 size: 69,
                 paddingl: 40,
@@ -107,10 +109,10 @@ class Navi extends Component {
               },
               {
                 name: "BBB",
-                image: "bbb",
+                image: require("../../assets/icons/bbb.png"),
                 screen: "BBB",
                 size: 100,
-                paddingl: 30,
+                paddingl: 0,
                 paddingr: 30,
                 paddingt: 10,
                 paddingb: 10,
@@ -119,7 +121,7 @@ class Navi extends Component {
             style={styles.gridView}
             // staticDimension={300}
             // fixed
-            spacing={10}
+            spacing={30}
             renderItem={({ item }) => (
               <View style={[styles.itemContainer]}>
                 <TouchableOpacity
@@ -129,24 +131,14 @@ class Navi extends Component {
                     })
                   }
                 >
-                  <EngineIcon
-                    type="FontAwesome5"
-                    size={item.size}
-                    color={"#1A70C7"}
-                    style={{
-                      backgroundColor: "#efefef",
-                      borderColor: "#1A70C7",
-                      textAlign: "center",
-                      borderWidth: 3,
-                      borderRadius: 13,
-                      paddingLeft: item.paddingl,
-                      paddingRight: item.paddingr,
-                      paddingTop: item.paddingt,
-                      paddingBottom: item.paddingb,
-                    }}
-                    name={item.image}
-                  />
-                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Image
+                style={{
+                  height: Dimensions.get("window").height / 5,
+                  width: 150,
+                  resizeMode: "contain",
+                }}
+                   source={item.image}
+                />
                 </TouchableOpacity>
               </View>
             )}

@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import React, { useState, useEffect, useRef, Component } from "react";
-import { StyleSheet, Text, Button, View, Image } from "react-native";
+import { StyleSheet, Text, Button, View, Image, Dimensions } from "react-native";
 import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
@@ -15,7 +15,6 @@ import Profile from "./src/screens/Profile";
 import Reviews from "./src/screens/Reviews";
 import Warranty from "./src/screens/Warranty";
 import BusinessCat from "./src/screens/BusinessCat";
-import Aul from "./src/screens/aul";
 import Offers from "./src/screens/Offers";
 import InfoScreen from "./src/screens/Info";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -32,6 +31,7 @@ import engine from "./assets/fonts/selection.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CarList from "./src/screens/CarList";
 import RegisterCar from "./src/screens/AddCar";
+
 if (__DEV__) {
   import("./ReactotronConfig");
 }
@@ -120,6 +120,7 @@ export default function App() {
             component={Start}
             options={{
               title: "Home",
+              headerTintColor: 'white',
               headerTitleStyle: {
                 color: 'white'
               },
@@ -147,6 +148,7 @@ export default function App() {
               },
               title: "Profile",
               headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -170,6 +172,7 @@ export default function App() {
               },
               title: "Auto Services",
               headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -193,6 +196,7 @@ export default function App() {
               },
               title: "Offers",
               headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -216,6 +220,7 @@ export default function App() {
               },
               title: "Reviews",
               headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -239,6 +244,7 @@ export default function App() {
               },
               title: "Resources",
               headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -258,23 +264,19 @@ export default function App() {
             component={BusinessCat}
             options={{
               headerTitleStyle: {
-                color: 'white'
+                color: 'white',
               },
               title: "Business Category",
-              headerRight: () => (
-                <Image
-                  resizeMode="stretch"
-                  source={require("./assets/logowhite.png")}
-                  style={{
-                    flex: 0,
-                    width: 100,
-                    marginRight: 10,
-                    height: 20,
-                  }}
-                />
-              ),
+              headerStyle: { backgroundColor: "#005a9c" },
+              headerTintColor: 'white',
+
             }}
           />
+          <Stack.Screen
+          name="Information"
+          component={InfoScreen}
+          options={{ title: "Info" }}
+        />
           <Stack.Screen
             name="Add Car"
             component={RegisterCar}
@@ -282,7 +284,8 @@ export default function App() {
               headerTitleStyle: {
                 color: 'white'
               },
-              title: "Vehicles",
+              title: "New Vehicle",
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -305,6 +308,7 @@ export default function App() {
                 color: 'white'
               },
               title: "Vehicles",
+              headerTintColor: 'white',
               headerRight: () => (
                 <Image
                   resizeMode="stretch"
@@ -324,16 +328,16 @@ export default function App() {
     );
   }
 
-class Start extends Component {
+class Start extends Component  {
   render() {
     return (
       <SafeAreaView>
         <FlatGrid
-          itemDimension={120}
+          itemDimension={150}
           data={[
             {
               name: "Profile",
-              image: "user",
+              image: require("./assets/icons/iconit.png"),
               screen: "Profile",
               size: 80,
               paddingl: 40,
@@ -343,7 +347,7 @@ class Start extends Component {
             },
             {
               name: "Auto Services",
-              image: "wrench",
+              image: require("./assets/icons/autoserv.png"),
               screen: "Auto Services",
               size: 80,
               paddingl: 30,
@@ -353,7 +357,7 @@ class Start extends Component {
             },
             {
               name: "Reviews",
-              image: "star",
+              image: require("./assets/icons/reviews.png"),
               screen: "Reviews",
               size: 80,
               paddingl: 30,
@@ -363,7 +367,7 @@ class Start extends Component {
             },
             {
               name: "Resources",
-              image: "folder-open",
+              image: require("./assets/icons/resor.png"),
               screen: "Resources",
               size: 60,
               paddingl: 35,
@@ -374,7 +378,7 @@ class Start extends Component {
        
             {
               name: "Offers",
-              image: "tag",
+              image: require("./assets/icons/offers.png"),
               screen: "Offers",
               size: 80,
               paddingl: 32,
@@ -382,21 +386,21 @@ class Start extends Component {
               paddingt: 20,
               paddingb: 20,
             },
-            /*{
+            {
               name: "Vehicle Maint.",
-              image: "engine",
+              image: require("./assets/icons/maint.png"),
               screen: "Car List",
               size: 80,
               paddingl: 32,
               paddingr: 32,
               paddingt: 20,
               paddingb: 20,
-            },*/
+            },
           ]}
           style={styles.gridView}
           // staticDimension={300}
           // fixed
-          spacing={10}
+          spacing={30}
           renderItem={({ item }) => (
             <View style={[styles.itemContainer]}>
               <TouchableOpacity
@@ -406,24 +410,14 @@ class Start extends Component {
                   })
                 }
               >
-                <EngineIcon
-                  type="FontAwesome5"
-                  size={item.size}
-                  color={"#1A70C7"}
-                  style={{
-                    backgroundColor: "#efefef",
-                    borderColor: "#1A70C7",
-                    alignSelf: "center",
-                    borderWidth: 3,
-                    borderRadius: 13,
-                    paddingLeft: item.paddingl,
-                    paddingRight: item.paddingr,
-                    paddingTop: item.paddingt,
-                    paddingBottom: item.paddingb,
-                  }}
-                  name={item.image}
+                <Image
+                style={{
+                  height: Dimensions.get("window").height / 5,
+                  width: 150,
+                  resizeMode: "contain",
+                }}
+                   source={item.image}
                 />
-                <Text style={styles.itemName}>{item.name}</Text>
               </TouchableOpacity>
             </View>
           )}

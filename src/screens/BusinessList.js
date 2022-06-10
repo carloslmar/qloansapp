@@ -21,7 +21,6 @@ import {
   HeaderBackButton,
 } from "@react-navigation/stack";
 // import DATA from "./customData.json";
-import InfoScreen from "./Info";
 import Firebase from "firebase";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import CompleteFlatList from "react-native-complete-flatlist";
@@ -34,18 +33,13 @@ class StackScreen extends Component {
   render() {
     // console.log(CatName);
     return (
+      <NavigationContainer
+      independent="true">
       <Stack.Navigator
         headerMode="screen"
         screenOptions={{
           headerTintColor: "#fff",
           headerStyle: { backgroundColor: "#10213d" },
-          headerLeft: () => (
-            <HeaderBackButton
-              onPress={() => this.props.navigation.goBack()}
-              tintColor="#FFFFFF"
-              label="Back"
-            />
-          ),
         }}
       >
         <Stack.Screen
@@ -54,6 +48,13 @@ class StackScreen extends Component {
           options={{
             title: "Auto Services",
             headerShown: false,
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => this.props.navigation.goBack()}
+                tintColor="#FFFFFF"
+                label="Back"
+              />
+            ),
             headerRight: () => (
               <Image
                 resizeMode="stretch"
@@ -73,7 +74,14 @@ class StackScreen extends Component {
           component={BusinessCat}
           options={{
             title: "Business Category",
-            headerShown: false,
+            headerShown: true,
+            headerLeft: () => (
+              <HeaderBackButton
+                onPress={() => this.props.navigation.goBack()}
+                tintColor="#FFFFFF"
+                label="Back"
+              />
+            ),
             headerRight: () => (
               <Image
                 resizeMode="stretch"
@@ -109,6 +117,7 @@ class StackScreen extends Component {
           }}
         />
       </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 }
@@ -277,10 +286,8 @@ class BusinessList extends Component {
                   onPress={() =>
                     this.props.navigation.navigate("Business Category", {
                       screen: "Business Category",
-
                       BusinessCategory: item.key,
                       CatName: item.category,
-                      testo: "testo",
                     })
                   }
                 >
@@ -307,7 +314,7 @@ class BusinessList extends Component {
   }
 }
 
-export default StackScreen;
+export default BusinessList;
 
 const styles = StyleSheet.create({
   container: {
