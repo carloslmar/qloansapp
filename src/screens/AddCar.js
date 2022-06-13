@@ -60,14 +60,18 @@ var Year = this.state.year;
 var Miles = this.state.miles;
 
 const make = new schema.Entity('make');
-const models = new schema.Entity('model', {
+const models = new schema.Entity('models');
+const carSchema = new schema.Entity('cars', {
   make: make,
+  model: [models]
 });
+const normalizedData = normalize(this.state.dataSource, carSchema);
+console.log(normalizedData);
 
   function AddData() {
      Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got",
+        title: "You've got a notification",
         body: "Here is the notification body",
         data: { data: "goes here" },
 
