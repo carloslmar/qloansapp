@@ -76,7 +76,7 @@ console.log(normalizedData);
         data: { data: "goes here" },
 
       },
-      trigger: { seconds: 2 },
+      trigger: {minute: 1},
     });
     db.transaction((tx) => {
       tx.executeSql(
