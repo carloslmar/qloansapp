@@ -110,6 +110,9 @@ console.log(normalizedData);
                 value={this.state.model}
                 onChangeText={(model) => this.setState({ model })}
               ></TextInput>
+               {!!this.state.nameError && (
+          <Text style={{ color: "red" }}>{this.state.nameError}</Text>
+        )}
               <TextInput
                 placeholder="Enter Vehicle VIN (Optional)"
                 style={{ padding: 10 }}
@@ -132,8 +135,13 @@ console.log(normalizedData);
                 onChangeText={(miles) => this.setState({ miles })}
               ></TextInput>
               <TouchableOpacity><Button onPress={() => {
-    AddData();
-  }} title="Save">SAVE</Button></TouchableOpacity>
+            if (this.state.model == null) {
+              this.setState(() => ({ nameError: "required." }));
+            } else {
+              this.setState(() => ({ nameError: null }));
+              AddData();
+            }
+          }} title="Save">SAVE</Button></TouchableOpacity>
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
