@@ -32,6 +32,7 @@ import CompleteFlatList from "react-native-complete-flatlist";
 import * as Permissions from "expo-permissions";
 import * as SQLite from "expo-sqlite";
 import Constants from "expo-constants";
+import CarInfoScreen from "CarInfo";
 
 class StackScreen extends Component {
   render() {
@@ -51,6 +52,11 @@ class StackScreen extends Component {
           name="Add Car"
           component={InfoScreen}
           options={{ title: "Add Vehicle" }}
+        />
+          <Stack.Screen
+          name="CarInfo"
+          component={CarInfoScreen}
+          options={{ title: "Car Info" }}
         />
       </Stack.Navigator>
     );
@@ -119,7 +125,32 @@ class CarList extends Component {
             </Text>
           )}
           renderItem={({ item }) => (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() =>
+              this.props.navigation.navigate("Car Info", {
+                screen: "Car Info",
+                Vid: item.id,
+                Bat_done: item.bat_done,
+                Brakef_done: item.brakef_done,
+                Caf_done: item.caf_done,
+                Car_year: item.car_year,
+                Eaf_done: item.eaf_done,
+                Fbrake_done: item.fbrake_done,
+                Make: item.make,
+                Miles: item.miles,
+                Model: item.model, 
+                Oil_done: item.oil_done, 
+                Pef_done: item.pef_done, 
+                Rad_done: item.rad_done, 
+                Rbrake_done: item.rbrake_done,
+                Spark_done: item.spark_done, 
+                State_done: item.state_done, 
+                Tbelt_done: item.tbelt_done, 
+                Tflu_done: item.tflu_done,
+                Vin: item.vin, 
+                Wheel_done: item.wheel_done, 
+                Windw_done: item.windw_done, 
+              })
+            }>
               <View style={{
                 marginTop: 15,
                 marginBottom: 15,

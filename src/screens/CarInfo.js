@@ -46,27 +46,37 @@ class StackScreen extends Component {
         }}
       >
         <Stack.Screen
-          name="Information"
-          component={InfoScreen}
-          options={{ title: "Info" }}
+          name="CarInfo"
+          component={CarInfoScreen}
+          options={{ title: "Car Info" }}
         />
       </Stack.Navigator>
     );
   }
 }
 
-function InfoScreen({ route, navigation }) {
-  const CarMake =
-    route.params?.Make ??
-    "Something went wrong! Databse connection not established.";
-  const Logo =
-    route.params?.Logo ??
-    "https://firebasestorage.googleapis.com/v0/b/ql-mobile-app-3a52a.appspot.com/o/placeholder%20(1).gif?alt=media&token=e32c651d-a98f-4e56-aac9-e9a77c24dfd9";
-  const Address = route.params?.Address ?? "No Address!";
-  const Phone = route.params?.Phone ?? "None";
-  const Contact = route.params?.Contact ?? "Representative";
-  const City = route.params?.City ?? "City";
-  const StateZip = route.params.StateZip ?? "zip";
+function CarInfoScreen({ route, navigation }) {
+  const Vid= route.params?.id;
+  const Bat_done= route.params?.bat_done;
+  const Brakef_done= route.params?.brakef_done;
+  const Caf_done= route.params?.caf_done;
+  const Car_year= route.params?.car_year;
+  const Eaf_done= route.params?.eaf_done;
+  const Fbrake_done= route.params?.fbrake_done;
+  const Make= route.params?.make;
+  const Miles= route.params?.miles;
+  const Model= route.params?.model; 
+  const Oil_done= route.params?.oil_done; 
+  const Pef_done= route.params?.pef_done; 
+  const Rad_done= route.params?.rad_done; 
+  const Rbrake_done= route.params?.rbrake_done;
+  const Spark_done= route.params?.spark_done; 
+  const State_done= route.params?.state_done; 
+  const Tbelt_done= route.params?.tbelt_done; 
+  const Tflu_done= route.params?.tflu_done;
+  const Vin= route.params?.vin; 
+  const Wheel_done= route.params?.wheel_done; 
+  const Windw_done= route.params?.windw_done; 
   return (
     <View style={styles.container}>
       <Card>

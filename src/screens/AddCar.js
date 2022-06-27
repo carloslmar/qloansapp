@@ -44,12 +44,23 @@ class AddCar extends Component {
   constructor() {
     super();
     this.state = {
-      dataSource: makes_and_models,
+      dataSource: [],
       make: null,
       model: null,
       vin: null,
       year: null,
     };
+  }
+
+  componentDidMount () {
+    fetch('https://private-anon-bc5a34dcee-carsapi1.apiary-mock.com/manufacturers')
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({ dataSource: json });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
 render() {
@@ -66,9 +77,10 @@ const carSchema = new schema.Entity('cars', {
   model: [models]
 });
 const normalizedData = normalize(this.state.dataSource, carSchema);
-console.log(normalizedData);
+console.log(new Date().getFullYear());
 
-  function AddData() {
+
+  function AddData(navigation) {
      Notifications.scheduleNotificationAsync({
       content: {
         title: "You've got a notification",
@@ -85,9 +97,8 @@ console.log(normalizedData);
     },  error => {
       alert(error);
     },)
+    navigation.goBack();
   }
-  var a = this.state.dataSource.map((item, key)=>(  console.log(item.models)))
-  console.log(a);
   return (
 
     <SafeAreaView style={{ flex: 1 }}>
@@ -101,8 +112,9 @@ console.log(normalizedData);
             onValueChange={(itemValue, itemIndex) => this.setState({make: itemValue})} >
  
             { this.state.dataSource.map((item, key)=>(
-            <Picker.Item label={item.make_name} value={item.make_name} key={key} />)
+            <Picker.Item label={item.name} value={item.name} key={key} />)
             )}
+
           </Picker>
                <TextInput
                 placeholder="Enter Vehicle Model"
