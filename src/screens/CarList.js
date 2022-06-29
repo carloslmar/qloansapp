@@ -32,7 +32,6 @@ import CompleteFlatList from "react-native-complete-flatlist";
 import * as Permissions from "expo-permissions";
 import * as SQLite from "expo-sqlite";
 import Constants from "expo-constants";
-import CarInfoScreen from "CarInfo";
 
 class StackScreen extends Component {
   render() {
@@ -50,7 +49,7 @@ class StackScreen extends Component {
       >
         <Stack.Screen
           name="Add Car"
-          component={InfoScreen}
+          component={AddCar}
           options={{ title: "Add Vehicle" }}
         />
           <Stack.Screen
@@ -126,8 +125,8 @@ class CarList extends Component {
           )}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() =>
-              this.props.navigation.navigate("Car Info", {
-                screen: "Car Info",
+              this.props.navigation.navigate("CarInfo", {
+                screen: "CarInfo",
                 Vid: item.id,
                 Bat_done: item.bat_done,
                 Brakef_done: item.brakef_done,
