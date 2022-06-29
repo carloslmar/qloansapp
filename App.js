@@ -31,6 +31,7 @@ import engine from "./assets/fonts/selection.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CarList from "./src/screens/CarList";
 import RegisterCar from "./src/screens/AddCar";
+import CarInfoScreen from "./CarInfo";
 
 if (__DEV__) {
   import("./ReactotronConfig");
@@ -276,6 +277,11 @@ export default function App() {
           name="Information"
           component={InfoScreen}
           options={{ title: "Info" }}
+        />
+         <Stack.Screen
+          name="CarInfo"
+          component={CarInfoScreen}
+          options={{ title: "Car Info" }}
         />
           <Stack.Screen
             name="Add Car"
