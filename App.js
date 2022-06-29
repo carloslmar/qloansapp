@@ -31,7 +31,7 @@ import engine from "./assets/fonts/selection.json";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CarList from "./src/screens/CarList";
 import RegisterCar from "./src/screens/AddCar";
-import CarInfoScreen from "./CarInfo";
+import CarInfoScreen from "./src/screens/CarInfo";
 
 if (__DEV__) {
   import("./ReactotronConfig");

@@ -84,66 +84,21 @@ function CarInfoScreen({ route, navigation }) {
           <Left>
             <Body>
               <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                {BusinessName}
+                {Vid}
               </Text>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
           <Body>
-            <Image
-              resizeMode="stretch"
-              style={{ height: 200, width: "100%", flex: 0 }}
-              source={{
-                uri: Logo,
-              }}
-            />
             <Text style={{ fontWeight: "bold" }}>Address:</Text>
-            <Text
-              onPress={() =>
-                Linking.openURL(
-                  Platform.OS === "ios"
-                    ? "http://maps.apple.com/?daddr=" + Address + "+" + City
-                    : "https://www.google.com/maps/dir/?api=1&origin&destination=" +
-                        Address +
-                        "+" +
-                        City
-                )
-              }
-            >
-              {Address}, {City},{StateZip}
+            <Text>
+              {Make}, {Model},{Miles}
               <Text> </Text>
               <FontAwesome5 name="map-marker-alt" size={25} color="red" />
             </Text>
-            <Text></Text>
-            <Text style={{ fontWeight: "bold" }}>Contact:</Text>
-            <Text
-              style={{
-                fontStyle: "italic",
-                fontFamily: Platform.OS === "ios" ? "Avenir Next" : "Roboto",
-              }}
-            >
-              {Contact}
-            </Text>
-            <Text></Text>
-            <Text style={{ fontWeight: "bold" }}>Phone:</Text>
-            <Text
-              style={{ color: "#000fff" }}
-              onPress={() => Linking.openURL("tel:" + Phone)}
-            >
-              {Phone}
-            </Text>
-          </Body>
-        </CardItem>
-
-        <CardItem>
-          <Right>
-            <Button transparent textStyle={{ color: "#87838B" }}>
-              <Icon name="ios-arrow-back" />
-              <Text onPress={() => navigation.goBack()}> Go back</Text>
-            </Button>
-          </Right>
-        </CardItem>
+ </Body>
+ </CardItem>
       </Card>
     </View>
   );
