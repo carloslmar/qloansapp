@@ -52,11 +52,6 @@ class StackScreen extends Component {
           component={AddCar}
           options={{ title: "Add Vehicle" }}
         />
-          <Stack.Screen
-          name="CarInfo"
-          component={CarInfoScreen}
-          options={{ title: "Car Info" }}
-        />
       </Stack.Navigator>
     );
   }
@@ -100,7 +95,7 @@ class CarList extends Component {
       error => {w
         console.log(error);
       },
-      () => console.log(this.state.list._array)
+      () => console.log("this.state.list._array")
     );
   }
 

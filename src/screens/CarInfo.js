@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   Text,
   StatusBar,
+  ScrollView,
   Linking,
   Image,
 } from "react-native";
@@ -28,6 +29,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { color } from "react-native-reanimated";
 import { render } from "react-dom";
+import { Cell, Separator, TableView, Section } from 'react-native-tableview-simple';
 
 const Stack = createStackNavigator();
 
@@ -77,35 +79,41 @@ function CarInfoScreen({ route, navigation }) {
   const Vin= route.params?.vin; 
   const Wheel_done= route.params?.wheel_done; 
   const Windw_done= route.params?.windw_done; 
+  
+
+  //give me the time and date
+  var date = new Date().getDate(); //Current Date
+  var month = new Date().getMonth() + 1; //Current Month
+  var year = new Date().getFullYear(); //Current Year
+  var hours = new Date().getHours(); //Current Hours
+
   return (
-    <View style={styles.container}>
-      <Card>
-        <CardItem>
-          <Left>
-            <Body>
-              <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                {Vid}
-              </Text>
-            </Body>
-          </Left>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <Text style={{ fontWeight: "bold" }}>Address:</Text>
-            <Text>
-              {Make}, {Model},{Miles}
-              <Text> </Text>
-              <FontAwesome5 name="map-marker-alt" size={25} color="red" />
-            </Text>
- </Body>
- </CardItem>
-      </Card>
-    </View>
+    <ScrollView contentContainerStyle={styles.stage}>
+    <TableView appearance="light">
+      <Section header={Make} footer="A Footer">
+        <Cell cellStyle="Basic" title="Basic" />
+        <Cell cellStyle="RightDetail" title="RightDetail" detail="Detail" />
+        <Cell cellStyle="LeftDetail" title="LeftDetail" detail="Detail" />
+        <Cell
+          cellStyle="Subtitle"
+          title="Subtitle"
+          detail="Non-selectable"
+        />
+        <Cell
+          cellStyle="Basic"
+          title="Pressable w/ accessory"
+          accessory="DisclosureIndicator"
+          onPress={() => console.log(Make)}
+        />
+      </Section>
+      </TableView>
+      </ScrollView>
   );
 }
 export default StackScreen;
 
 const styles = StyleSheet.create({
+
   container: {
     backgroundColor: "#FFFFFF",
     flex: 1,
@@ -131,4 +139,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 12,
   },
+  table: {  flexDirection: "row", flexWrap: "wrap" },      
+  tableRow: { flexDirection: "row", flexWrap: "wrap" }, 
+  tableCol: { flexDirection: "column", flexWrap: "wrap" },
+  tableText: {  fontSize: 12, color: "#000000" },
 });
